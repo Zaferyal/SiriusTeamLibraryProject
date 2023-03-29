@@ -32,6 +32,18 @@ public abstract  class BasePage {
         logOutLink.click();
     }
 
+    @FindBy(xpath = "(//a[@class='nav-link'])[2]")
+    public WebElement BorrowingBooksPage;
+
+    @FindBy(xpath = "//input[@type ='search']")
+    public WebElement SearchBar;
+
+    @FindBy(xpath = "(//a[@role = 'button'])[6]")
+    public WebElement BorrowBookButton;
+
+    @FindBy(xpath = "//div[.='The book has been borrowed...']")
+    public WebElement message;
+
     public void navigateModule(String moduleName){
         Driver.getDriver().findElement(By.xpath("//span[@class='title'][.='"+moduleName+"']")).click();
     }

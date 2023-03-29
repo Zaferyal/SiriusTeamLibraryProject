@@ -10,4 +10,7 @@ public class BorrowedBooksPage extends BasePage{
 
     @FindBy(xpath = "//tbody//td[2]")
     public List<WebElement> allBorrowedBooksName;
+
+    @FindBy(xpath = "//td[.='NOT RETURNED ']")
+    public WebElement NotReturnedMessage;
 }
