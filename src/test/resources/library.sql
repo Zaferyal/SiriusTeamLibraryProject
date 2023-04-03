@@ -1,1 +1,1 @@
-select name from books;
+select name from books where name='Head First Java';

@@ -18,6 +18,7 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 public class US06_StepDefs_nara {
 String librarian_username;
@@ -29,11 +30,13 @@ String library_url;
 
 
 
+
     @Given("the {string} on the home page")
     public void the_on_the_home_page(String librarian) {
 
-        Driver.getDriver().get("https://library2.cydeo.com/login.html");
-      //  loginPage.login(librarian);
+       // Driver.getDriver().get("https://library2.cydeo.com/login.html");
+
+       loginPage.login(librarian);
 
         BrowserUtil.waitFor(2);
 
@@ -41,9 +44,9 @@ String library_url;
         BrowserUtil.waitFor(4);*/
       //  Driver.getDriver().get("https://library2.cydeo.com/login.html");
 
-        loginPage.emailBox.sendKeys("librarian43@library");
+      /*  loginPage.emailBox.sendKeys("librarian43@library");
         loginPage.passwordBox.sendKeys("libraryUser");
-        loginPage.loginButton.click();
+        loginPage.loginButton.click();*/
 
 
     }
@@ -65,28 +68,28 @@ String library_url;
 
         bookPage.addBook.click();
 
-       bookPage.bookName.sendKeys("Head First Java");
+       bookPage.bookName.sendKeys(string);
 
     }
     @When("the librarian enter ISBN {string}")
-    public void the_librarian_enter_isbn(String string) {
+    public void the_librarian_enter_isbn(String string2) {
 
-        bookPage.isbn.sendKeys("10112021");
+        bookPage.isbn.sendKeys(string2);
     }
     @When("the librarian enter year {string}")
-    public void the_librarian_enter_year(String string) {
+    public void the_librarian_enter_year(String string3) {
 
-        bookPage.year.sendKeys("2021");
+        bookPage.year.sendKeys(string3);
     }
     @When("the librarian enter author {string}")
-    public void the_librarian_enter_author(String string) {
+    public void the_librarian_enter_author(String string4) {
 
-        bookPage.author.sendKeys("Kathy Sierra");
+        bookPage.author.sendKeys(string4);
     }
     @When("the librarian choose the book category {string}")
-    public void the_librarian_choose_the_book_category(String string) {
+    public void the_librarian_choose_the_book_category(String string5) {
         Select Category=new Select(bookPage.categoryDropdown);
-        Category.selectByVisibleText("Action and Adventure");
+        Category.selectByVisibleText(string5);
 
 
     }
@@ -98,7 +101,7 @@ String library_url;
 
     }
     @Then("verify {string} message is displayed")
-    public void verify_message_is_displayed(String string) {
+    public void verify_message_is_displayed(String string6) {
 
 
 
@@ -107,16 +110,15 @@ String library_url;
 
     }
     @Then("verify {string} information must match with DB")
-    public void verify_information_must_match_with_db(String string) {
+    public void verify_information_must_match_with_db(String string7) {
 
-        DB_Util.createConnection();
 
 
         DB_Util.runQuery("select name from books");
 
         List<String> expectedNameList = DB_Util.getColumnDataAsList(1);
 
-        Assert.assertTrue(expectedNameList.contains("Head First Java"));
+        Assert.assertTrue(expectedNameList.contains(string7));
 
 
      /*   List<Map<String, String>> allRowAsListOfMap = DB_Util.getAllRowAsListOfMap();
@@ -131,7 +133,7 @@ String library_url;
 
 
 
-        DB_Util.destroy();
+
 
     }
 
