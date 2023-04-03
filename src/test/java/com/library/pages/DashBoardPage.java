@@ -19,6 +19,12 @@ public class DashBoardPage extends BasePage
     public WebElement booksNumber;
 
 
+    @FindBy(xpath = "//span[.='Books']")
+    public WebElement Books;
+
+
+
+
 
 
     public String getModuleCount(String module){
