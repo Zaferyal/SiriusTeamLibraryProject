@@ -4,6 +4,7 @@ import com.library.pages.BookPage;
 import com.library.pages.DashBoardPage;
 import com.library.pages.LoginPage;
 import com.library.utility.BrowserUtil;
+import com.library.utility.DB_Util;
 import com.library.utility.Driver;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,6 +15,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class US06_StepDefs_nara {
 String librarian_username;
 String librarian_password;
@@ -22,15 +27,21 @@ String library_url;
     BookPage bookPage=new BookPage();
     DashBoardPage dashBoardPage=new DashBoardPage();
 
+
+
     @Given("the {string} on the home page")
     public void the_on_the_home_page(String librarian) {
 
+        Driver.getDriver().get("https://library2.cydeo.com/login.html");
+      //  loginPage.login(librarian);
+
+        BrowserUtil.waitFor(2);
 
        /* loginPage.login(librarian_username,librarian_password);
         BrowserUtil.waitFor(4);*/
-        Driver.getDriver().get("https://library2.cydeo.com/login.html");
+      //  Driver.getDriver().get("https://library2.cydeo.com/login.html");
 
-       loginPage.emailBox.sendKeys("librarian43@library");
+        loginPage.emailBox.sendKeys("librarian43@library");
         loginPage.passwordBox.sendKeys("libraryUser");
         loginPage.loginButton.click();
 
@@ -98,7 +109,29 @@ String library_url;
     @Then("verify {string} information must match with DB")
     public void verify_information_must_match_with_db(String string) {
 
+        DB_Util.createConnection();
 
+
+        DB_Util.runQuery("select name from books");
+
+        List<String> expectedNameList = DB_Util.getColumnDataAsList(1);
+
+        Assert.assertTrue(expectedNameList.contains("Head First Java"));
+
+
+     /*   List<Map<String, String>> allRowAsListOfMap = DB_Util.getAllRowAsListOfMap();
+
+        for (Map<String, String> rowMap : allRowAsListOfMap) {
+            System.out.println(rowMap);
+        }
+*/
+      //  List<ArrayList> expectedBooks=
+        // Assert.assertTrue(allRowAsListOfMap.contains());
+
+
+
+
+        DB_Util.destroy();
 
     }
 
